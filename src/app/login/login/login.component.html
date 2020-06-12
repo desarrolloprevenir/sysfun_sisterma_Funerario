@@ -1,29 +1,37 @@
 <div>
-    <a class="hiddenanchor" id="signup"></a>
-    <a class="hiddenanchor" id="signin"></a>
+    <!-- <a class="hiddenanchor" id="signup"></a>
+    <a class="hiddenanchor" id="signin"></a> -->
 
     <div class="login_wrapper">
         <div class="animate form login_form">
             <section class="login_content">
-                <form>
-                    <h1>Login Form</h1>
+                <form ngNativeValidate #f="ngForm" (ngSubmit)="iniciarSesion(f)">
+                    <h1>Inicio de sesión</h1>
                     <div>
-                        <input type="text" class="form-control" placeholder="Username" required="" />
+                        <!-- pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$" -->
+                        <input ngModel name="correo" type="text" class="form-control" placeholder="Nombre de usuario" required="" />
                     </div>
                     <div>
-                        <input type="password" class="form-control" placeholder="Password" required="" />
+                        <input ngModel name="contrasena" type="password" class="form-control" placeholder="Contraseña" required="" />
                     </div>
                     <div>
-                        <a class="btn btn-default submit" href="index.html">Log in</a>
-                        <a class="reset_pass" href="#">Lost your password?</a>
+                        <!-- <a class="btn btn-default submit" href="index.html">Login</a> -->
+                        <button class="btn btn-secondary" type="submit">Iniciar Sesion</button>
+                        <button class="btn btn-secondary" type="button" routerLink="/registro">Registrate</button>
+
                     </div>
 
                     <div class="clearfix"></div>
 
                     <div class="separator">
-                        <p class="change_link">New to site?
-                            <a routerLink="/registro" class="to_register"> Create Account </a>
-                        </p>
+                        <div>
+                            <!-- <a class="btn btn-default submit" href="index.html">Login</a> -->
+
+                            <a href="#" style="font-size: 15px;">Olvido su contraseña?</a>
+
+
+                        </div>
+
 
                         <div class="clearfix"></div>
                         <br />

@@ -1,0 +1,377 @@
+<!-- ----------------------------------------------------------------------------------------------------- -->
+<!-- ---------------------------------------- Registrar contrato ----------------------------------------- -->
+<!-- ----------------------------------------------------------------------------------------------------- -->
+<div class="x-content">
+
+    <div class="row">
+        <div class="col-6">
+            <div class="form-group">
+                <label for="" style="color:73879c">Selecciona el tipo de plan</label>
+                <select name="" id="" class="form-control">
+                        <option value=""></option>
+                        <option value="">plan individual</option>
+                    </select>
+            </div>
+        </div>
+        <div class="col-6"></div>
+    </div>
+
+    <!-- ----------------------------------------------------------------------------------------------------- -->
+    <!-- -------------------------------------------- INFO PLAN ---------------------------------------------- -->
+    <!-- ----------------------------------------------------------------------------------------------------- -->
+    <div>
+
+
+
+
+
+    </div>
+
+    <form class="form-label-left input_mask" [formGroup]="formTitular" (ngSubmit)="guardarContrato()">
+
+        <h3 class="text-left">Plan individual</h3>
+
+        <div class="row">
+
+            <!-- ----------------------------------------- NOMBRES -------------------------------------- -->
+
+            <div class="col">
+                <label class="col-form-label col-md-2 col-sm-2">Nombres <span class="required">*</span></label>
+                <div class="col-md-10 col-sm-10 ">
+                    <input type="text" class="form-control" formControlName="nombres" placeholder="nombres" maxlength="30" [class.is-invalid]="(formTitular.get('nombres').errors && formTitular.get('nombres').touched) ||
+                                                                                                                            (formTitular.get('nombres').errors) && (formTitular.invalid && (validarFormulario === 'invalido' )) ">
+
+                    <!-- ----------------------------------- VALIDACION NOMBRES ----------------------------- -->
+                    <div>
+                        <p style="color: red; font-size: 13px" *ngIf="formTitular.get('nombres').getError('required') && formTitular.get('nombres').touched">* Esta campo es requerido.</p>
+                        <p style="color: red; font-size: 13px" *ngIf="formTitular.get('nombres').getError('pattern') && formTitular.get('nombres').touched">* Esta campo solo acepta letras, sin caracteres especiales.</p>
+                        <p style="color: red; font-size: 13px" *ngIf="formTitular.get('nombres').getError('minlength') && formTitular.get('nombres').touched">* Cantidad minima de caracteres (3).</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ----------------------------------------- APELLIDOS -------------------------------------- -->
+            <div class="col">
+                <label class="col-form-label col-md-2 col-sm-2 ">Apellidos <span class="required">*</span></label>
+                <div class="col-md-10 col-sm-10">
+                    <input type="text" class="form-control" formControlName="apellidos" placeholder="Apellidos" [class.is-invalid]="(formTitular.get('apellidos').errors && formTitular.get('apellidos').touched) ||
+                                                                                                                                (formTitular.get('nombres').errors) && (formTitular.invalid && (validarFormulario === 'invalido' ))">
+
+                    <!-- ----------------------------------- VALIDACION APELLIDOS ----------------------------- -->
+                    <div>
+                        <p style="color: red; font-size: 13px" *ngIf="formTitular.get('apellidos').getError('required') && formTitular.get('apellidos').touched">* Esta campo es requerido.</p>
+                        <p style="color: red; font-size: 13px" *ngIf="formTitular.get('apellidos').getError('pattern') && formTitular.get('apellidos').touched">* Esta campo solo acepta letras, sin caracteres especiales.</p>
+                        <p style="color: red; font-size: 13px" *ngIf="formTitular.get('apellidos').getError('minlength') && formTitular.get('apellidos').touched">* Cantidad minima de caracteres (3).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="padding-top: 10px;">
+            <!-- ----------------------------------------- TIPO DOCUMENTO -------------------------------------- -->
+            <div class="col">
+                <label class="col-form-label col-md-2 col-sm-2 ">Tipo documento <span class="required">*</span></label>
+                <div class="col-md-10 col-sm-10">
+                    <select class="form-control" formControlName="tipoDocumento" [class.is-invalid]="(formTitular.get('tipoDocumento').errors && formTitular.get('tipoDocumento').touched) ||
+                                                                                                 (formTitular.get('tipoDocumento').errors) && (formTitular.invalid && (validarFormulario === 'invalido' )) ">
+
+                    <option value="CC">Cédula de Ciudadanía</option>
+                    <option value="CE">Cédula de Extranjería</option>
+                    <option value="PA">Pasaporte</option>
+                    <option value="RC">Registro Civil</option>
+                    <option value="TI">Tarjeta de Identidad</option>
+                </select>
+
+                    <!-- ----------------------------------------- TIPO DOCUMENTO VALIDACIONES -------------------------------------- -->
+                    <div>
+                        <p style="color: red; font-size: 13px" *ngIf="formTitular.get('tipoDocumento').getError('required') && formTitular.get('tipoDocumento').touched">* Esta campo es requerido.</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ----------------------------------------- NUMERO DOCUMENTO -------------------------------------- -->
+            <div class="col">
+                <label class="col-form-label col-md-2 col-sm-2 ">Número de documento <span class="required">*</span></label>
+                <div class="col-md-10 col-sm-10">
+                    <input type="text" class="form-control" formControlName="numeroIdentificacion" placeholder="No. de identificación." [class.is-invalid]="(formTitular.get('numeroIdentificacion').errors && formTitular.get('numeroIdentificacion').touched) ||
+                                                                                                                                                        (formTitular.get('numeroIdentificacion').errors) && (formTitular.invalid && (validarFormulario === 'invalido' )) ">
+
+                    <!-- ----------------------------------------- TIPO DOCUMENTO VALIDACIONES -------------------------------------- -->
+                    <div>
+                        <p style="color: red; font-size: 13px" *ngIf="formTitular.get('numeroIdentificacion').getError('required') && formTitular.get('numeroIdentificacion').touched">* Esta campo es requerido.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ----------------------------------------------------------------------------------------------------- -->
+        <!-- -------------------------------------------- CEDULA DE ---------------------------------------------- -->
+        <!-- ----------------------------------------------------------------------------------------------------- -->
+
+        <div class="row" style="padding-top: 10px;">
+
+            <!-- ----------------------------------------- LUGAR DE EXPEDICION -------------------------------------- -->
+            <div class="col">
+                <label class="col-form-label col-md-2 col-sm-2 ">Lugar de expedicion cedula <span class="required">*</span></label>
+                <div class="col-md-10 col-sm-10">
+                    <input type="text" class="form-control" formControlName="lugarExpedicion" placeholder="lugar expedición cedula" [class.is-invalid]="(formTitular.get('lugarExpedicion').errors && formTitular.get('lugarExpedicion').touched) ||
+                                                                                                                                                (formTitular.get('lugarExpedicion').errors) && (formTitular.invalid && (validarFormulario === 'invalido' )) ">
+
+                    <!-- ----------------------------------------- VALIDACIONES lugarExpedicion -------------------------------------- -->
+                    <div>
+                        <p style="color: red; font-size: 13px" *ngIf="formTitular.get('lugarExpedicion').getError('required') && formTitular.get('lugarExpedicion').touched">* Esta campo es requerido.</p>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- ----------------------------------------- FECHA NACIMIENTO -------------------------------------- -->
+            <div class="col">
+                <label class="col-form-label col-md-2 col-sm-2 ">Fecha de nacimiento <span class="required">*</span></label>
+                <div class="col-md-10 col-sm-10">
+                    <input type="date" class="form-control" formControlName="fechaNacimiento" placeholder="lugar expedición cedula" [class.is-invalid]="(formTitular.get('fechaNacimiento').errors && formTitular.get('fechaNacimiento').touched) ||
+                                                                                                                                                (formTitular.get('fechaNacimiento').errors) && (formTitular.invalid && (validarFormulario === 'invalido' )) ">
+
+                    <!-- ----------------------------------------- VALIDACIONES fechaNacimiento -------------------------------------- -->
+                    <div>
+                        <p style="color: red; font-size: 13px" *ngIf="formTitular.get('fechaNacimiento').getError('required') && formTitular.get('fechaNacimiento').touched">* Esta campo es requerido.</p>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+
+        <div class="row" style="padding-top: 10px;">
+            <!-- ----------------------------------------- EMAIL -------------------------------------- -->
+            <div class="col">
+                <label class="col-form-label col-md-2 col-sm-2 ">Correo electronico <span class="required">*</span></label>
+                <div class="col-md-10 col-sm-10">
+                    <input type="text" class="form-control" formControlName="email" placeholder="ejemplo@email.com" [class.is-invalid]="(formTitular.get('email').errors && formTitular.get('email').touched) ||
+                                                                                                                                    (formTitular.get('email').errors) && (formTitular.invalid && (validarFormulario === 'invalido' )) ">
+
+                    <!-- ----------------------------------------- VALIDACIONES EMAIL -------------------------------------- -->
+                    <div>
+                        <p style="color: red; font-size: 13px" *ngIf="formTitular.get('email').getError('required') && formTitular.get('email').touched">* Esta campo es requerido.</p>
+                        <p style="color: red; font-size: 13px" *ngIf="formTitular.get('email').getError('email') && formTitular.get('email').touched ||
+                                                                            formTitular.get('email').getError('pattern') && formTitular.get('email').touched">* Correo electronico invalido.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ----------------------------------------- NUMERO CELULAR -------------------------------------- -->
+            <div class="col">
+                <label class="col-form-label col-md-2 col-sm-2 ">Número de celular <span class="required">*</span></label>
+                <div class="col-md-10 col-sm-10">
+                    <input type="text" class="form-control" formControlName="numeroCelular" placeholder="No. de contacto." [class.is-invalid]="(formTitular.get('numeroCelular').errors && formTitular.get('numeroCelular').touched) ||
+                                                                                                                                           (formTitular.get('numeroCelular').errors) && (formTitular.invalid && (validarFormulario === 'invalido' )) ">
+
+                    <!-- ----------------------------------------- VALIDACIONES NUMERO CELULAR -------------------------------------- -->
+                    <div>
+                        <p style="color: red; font-size: 13px" *ngIf="formTitular.get('numeroCelular').getError('required') && formTitular.get('numeroCelular').touched">* Esta campo es requerido.</p>
+                        <p style="color: red; font-size: 13px" *ngIf="formTitular.get('numeroCelular').getError('pattern') && formTitular.get('numeroCelular').touched">* Pattern.</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="padding-top: 10px;">
+            <!-- ----------------------------------------- DEPARTAMENTO -------------------------------------- -->
+            <div class="col">
+                <label class="col-form-label col-md-2 col-sm-2 ">Departamento <span class="required">*</span></label>
+                <div class="col-md-10 col-sm-10">
+                    <select class="form-control" [formControl]="departamento" [class.is-invalid]="departamento.getError('required') && departamento.touched">
+                    <option *ngFor="let d of departamentos" [value]="d.id_departamento">{{d.nombre}}</option>
+                </select>
+
+                    <!-- ----------------------------------------- VALIDACIONES DEPARTAMENTO -------------------------------------- -->
+                    <div>
+                        <p style="color: red; font-size: 13px" *ngIf="departamento.getError('required') && departamento.touched">* Esta campo es requerido.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ----------------------------------------- MUNICIPIO -------------------------------------- -->
+            <div class="col">
+                <label class="col-form-label col-md-2 col-sm-2 ">Municipio <span class="required">*</span></label>
+                <div class="col-md-10 col-sm-10">
+                    <select class="form-control" formControlName="municipio" [class.is-invalid]="(formTitular.get('municipio').errors && formTitular.get('municipio').touched) ||
+                                                                                             (formTitular.get('municipio').errors) && (formTitular.invalid && (validarFormulario === 'invalido' )) ">
+                    <option *ngFor="let m of municipios" [value]="m.id_municipio">{{m.nombre}}</option>
+                </select>
+                    <!-- ----------------------------------------- VALIDACIONES MUNICIPIO -------------------------------------- -->
+                    <div>
+                        <p style="color: red; font-size: 13px" *ngIf="formTitular.get('municipio').getError('required') && formTitular.get('municipio').touched">* Esta campo es requerido.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row" style="padding-top: 10px;">
+            <!-- ----------------------------------------- DIRECCION -------------------------------------- -->
+            <div class="col">
+                <label class="col-form-label col-md-2 col-sm-2 ">Dirección <span class="required">*</span></label>
+                <div class="col-md-10 col-sm-10">
+                    <input type="text" class="form-control" formControlName="direccion" placeholder="Dirección" [class.is-invalid]="(formTitular.get('direccion').errors && formTitular.get('direccion').touched) ||
+                                                                                                                                (formTitular.get('direccion').errors) && (formTitular.invalid && (validarFormulario === 'invalido' )) ">
+
+                    <!-- ----------------------------------------- VALIDACIONES DIRECCION  -------------------------------------- -->
+                    <div>
+                        <p style="color: red; font-size: 13px" *ngIf="formTitular.get('direccion').getError('required') && formTitular.get('direccion').touched">* Esta campo es requerido.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ----------------------------------------- BARRRIO -------------------------------------- -->
+            <div class="col">
+                <label class="col-form-label col-md-2 col-sm-2 ">Barrio <span class="required">*</span></label>
+                <div class="col-md-10 col-sm-10">
+                    <input type="text" class="form-control" formControlName="barrio" placeholder="Barrio" [class.is-invalid]="(formTitular.get('barrio').errors && formTitular.get('barrio').touched) ||
+                                                                                                                          (formTitular.get('barrio').errors) && (formTitular.invalid && (validarFormulario === 'invalido' )) ">
+
+                    <!-- ----------------------------------------- VALIDACIONES BARRIO  -------------------------------------- -->
+                    <div>
+                        <p style="color: red; font-size: 13px" *ngIf="formTitular.get('barrio').getError('required') && formTitular.get('barrio').touched">* Esta campo es requerido.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="padding-top: 10px;">
+            <div class="col">
+                <label class="col-form-label col-md-2 col-sm-2 ">Profesión</label>
+                <div class="col-md-10 col-sm-10">
+                    <input type="text" class="form-control" formControlName="profesion" placeholder="Profesión">
+                </div>
+            </div>
+
+            <div class="col">
+                <label class="col-form-label col-md-2 col-sm-2 ">Estado civil <span class="required">*</span></label>
+                <div class="col-md-10 col-sm-10">
+                    <select class="form-control" formControlName="estadoCivil" [class.is-invalid]="(formTitular.get('estadoCivil').errors && formTitular.get('estadoCivil').touched) ||
+                                                                                                 (formTitular.get('estadoCivil').errors) && (formTitular.invalid && (validarFormulario === 'invalido' )) ">
+                        <option value=""></option>
+                        <option value="Solter@">Solter@</option>
+                        <option value="Comprometid@">Comprometid@</option>
+                        <option value="Casad@">Casad@</option>
+                        <option value="Union libre">Union libre</option>
+                        <option value="Separad@">Separad@</option>
+                        <option value="Divorciad@">Divorciad@</option>
+                        <option value="Viud@">Viud@</option>
+                        <option value="Noviazgo">Noviazgo</option>
+                    </select>
+
+                    <!-- ----------------------------------------- VALIDACIONES ESTADO CIVIL  -------------------------------------- -->
+                    <div>
+                        <p style="color: red; font-size: 13px" *ngIf="formTitular.get('estadoCivil').getError('required') && formTitular.get('estadoCivil').touched">* Esta campo es requerido.</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- ----------------------------------------------------------------------------------------------------- -->
+        <!-- ----------------------------------------- FORMULARIOS BNEFICIARIO ----------------------------------- -->
+        <!-- ----------------------------------------------------------------------------------------------------- -->
+
+        <div *ngIf="formsBeneficiario.length >= 1">
+
+            <div *ngFor="let fb of formsBeneficiario; let i = index">
+
+                <div class="row" style="margin-top: 40px;">
+
+                    <div class="col-8  text-left">
+                        <h3 class="card-title">Formulario beneficiario No. {{i + 1}}</h3>
+                    </div>
+                    <div class="col-4 text-right">
+                        <button class="btn btn-danger" (click)="eliminarFormulario(i)">X</button>
+                    </div>
+
+                </div>
+
+                <form style="margin-top: 30px;">
+                    <div class="row">
+                        <div class="col">
+                            <label class="form-label">Nombres</label>
+                            <input type="text" [id]="'nombres' + i" class="form-control" placeholder="Nombres" pattern="[A-Z a-z ñ]*" (keypress)="cambioHtml($event, 'nombre', i)" required>
+                            <p [id]="'textn' + i" style="color: red; font-size: 13px; display: none;">* Esta campo es requerido.</p>
+                            <p [id]="'textno' + i" style="color: red; font-size: 13px; display: none;">* Esta campo solo acepta letras.</p>
+                        </div>
+                        <div class="col">
+                            <label class="form-label">Apellidos</label>
+                            <input type="text" [id]="'apellidos' + i" class="form-control" placeholder="Apellidos" pattern="('[A-Z a-z ñ]*')" (keypress)="cambioHtml($event, 'apellido', i)" required>
+                            <p [id]="'texta' + i" style="color: red; font-size: 13px; display: none;">* Esta campo es requerido.</p>
+                            <p [id]="'textap' + i" style="color: red; font-size: 13px; display: none;">* Esta campo solo acepta letras.</p>
+                        </div>
+                    </div>
+
+                    <div class="row" style="padding-top: 10px;">
+                        <div class="col">
+                            <label class="form-label">tipo Documento</label>
+                            <select class="form-control" [id]="'tipoDocumento' + i" (change)="cambioHtml($event, 'tipoDocumento', i)">
+                                    <option disabled></option>
+                                    <option value="CC">Cédula de Ciudadanía</option>
+                                    <option value="CE">Cédula de Extranjería</option>
+                                    <option value="PA">Pasaporte</option>
+                                    <option value="RC">Registro Civil</option>
+                                    <option value="TI">Tarjeta de Identidad</option>
+                                </select>
+                            <p [id]="'texttdo' + i" style="color: red; font-size: 13px; display: none;">* Esta campo es requerido.</p>
+                        </div>
+                        <div class="col">
+                            <label class="form-label">Patentesco</label>
+                            <select class="form-control" [id]="'parentesco' + i" (change)="cambioHtml($event, 'parentesco', i)">
+                                        <option disabled></option>
+                                        <option *ngFor="let p of parentescos" [value]="p.id_parentescos">{{p.nombre}}</option>
+                                </select>
+                            <p [id]="'textpa' + i" style="color: red; font-size: 13px; display: none;">* Esta campo es requerido.</p>
+                        </div>
+                    </div>
+
+                    <div class="row" style="padding-top: 10px;">
+                        <div class="col">
+                            <label class="form-label">Numero de documento</label>
+                            <input type="number" class="form-control" min="0" placeholder="No. de identificación." [id]="'numeroDocumento' + i" (keypress)="cambioHtml($event, 'numeroDocumento', i)">
+                            <p [id]="'textnd' + i" style="color: red; font-size: 13px; display: none;">* Esta campo es requerido.</p>
+                            <p [id]="'textndo' + i" style="color: red; font-size: 13px; display: none;">* Número invalido.</p>
+                        </div>
+                        <div class="col">
+                            <label class="form-label">Fecha nacimiento</label>
+                            <input type="date" class="form-control" [max]="today" placeholder="No. de identificación." [id]="'fechaNacimiento' + i" (change)="cambioHtml($event, 'fechaNacimiento', i)">
+                            <p [id]="'textfn' + i" style="color: red; font-size: 13px; display: none;">* Esta campo es requerido.</p>
+                        </div>
+                        <div class="col">
+                            <label class="form-label">Numero de Celular o Contacto</label>
+                            <input type="number" class="form-control" min="0" placeholder="No. de identificación." [id]="'numeroCelular' + i" (keypress)="cambioHtml($event, 'numeroCelular', i)">
+                            <p [id]="'textnc' + i" style="color: red; font-size: 13px; display: none;">* Esta campo es requerido.</p>
+                            <p [id]="'textnce' + i" style="color: red; font-size: 13px; display: none;">* Número invalido.</p>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+
+
+        <!-- ----------------------------------------------------------------------------------------------------- -->
+        <!-- --------------------------------------------- Botones ----------------------------------------------- -->
+        <!-- ----------------------------------------------------------------------------------------------------- -->
+
+        <div class="ln_solid"></div>
+        <div class="form-group text-center" style="padding-bottom: 20px;;">
+
+            <button type="button" class="btn btn-primary" (click)="agregarBeneficiario()">Agregar beneficiario</button>
+            <button type="submit" class="btn btn-success">Guardar contrato</button>
+
+        </div>
+    </form>
+</div>

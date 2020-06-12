@@ -1,4 +1,4 @@
-<div class="col-md-3 left_col">
+<div class="col-md-3 left_col menu_fixed">
     <div class="left_col scroll-view">
         <div class="navbar nav_title" style="border: 0;">
             <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
@@ -9,11 +9,11 @@
         <!-- menu profile quick info -->
         <div class="profile clearfix">
             <div class="profile_pic">
-                <img src="assets/images/img.jpg" alt="..." class="img-circle profile_img">
+                <img src="assets/images/user.png" alt="..." class="img-circle profile_img">
             </div>
             <div class="profile_info">
-                <span>Welcome,</span>
-                <h2>John Doe</h2>
+                <span>Bienvenido,</span>
+                <h2>{{usuario.nombres}}</h2>
             </div>
         </div>
         <!-- /menu profile quick info -->
@@ -22,51 +22,27 @@
 
         <!-- sidebar menu -->
         <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-            <div class="menu_section">
-                <h3>General</h3>
-                <ul class="nav">
-                    <li><a style="color: white;" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-bug"></i> Additional Pages <span class="fa fa-chevron-down"></span></a>
-                        <ul class="collapse" id="collapseExample">
 
-                            <li><a style="color: white;"> Additional Pages </a></li>
-                            <li><a style="color: white;"> n </a></li>
-                            <li><a style="color: white;"> s </a></li>
+            <div *ngFor="let m of menu">
 
-                        </ul>
+                <div class="menu_section" *ngIf="m.activo">
+                    <h3>{{m.modulo}}</h3>
 
-                        <!-- <li><a style="color: white;"><i class="fa fa-bug"></i> Additional Pages <span class="fa fa-chevron-down"></span></a></li>
-                            <li><a style="color: white;"><i class="fa fa-bug"></i> s <span class="fa fa-chevron-down"></span></a></li>
-                            <li><a style="color: white;"><i class="fa fa-bug"></i> n <span class="fa fa-chevron-down"></span></a></li>
-                            <li><a style="color: white;"><i class="fa fa-bug"></i> Additional Pages <span class="fa fa-chevron-down"></span></a></li>
-                    </li> -->
-                </ul>
+
+                    <ul class="nav">
+                        <!-- // ======================================
+                           // Sub menu
+                           // ====================================== -->
+                        <li *ngFor="let sm of m.subMenu"><a *ngIf="sm.ver" style="color: white;" [routerLink]="[ sm.ruta ]"><i [class]="sm.icono"></i>{{sm.nombre}}</a></li>
+                    </ul>
+                </div>
+
             </div>
-
-            <div class="menu_section">
-                <h3>Contenido</h3>
-                <ul class="nav">
-                    <li><a style="color: white;" data-toggle="collapse" href="#collapseContenido" role="button" aria-expanded="false"><i class="fa fa-bug"></i> Additional Pages <span class="fa fa-chevron-down"></span></a>
-                        <ul class="collapse" id="collapseContenido">
-
-                            <li><a style="color: white;"> Additional Pages </a></li>
-                            <li><a style="color: white;"> n </a></li>
-                            <li><a style="color: white;"> s </a></li>
-
-                        </ul>
-
-                        <!-- <li><a style="color: white;"><i class="fa fa-bug"></i> Additional Pages <span class="fa fa-chevron-down"></span></a></li>
-                            <li><a style="color: white;"><i class="fa fa-bug"></i> s <span class="fa fa-chevron-down"></span></a></li>
-                            <li><a style="color: white;"><i class="fa fa-bug"></i> n <span class="fa fa-chevron-down"></span></a></li>
-                            <li><a style="color: white;"><i class="fa fa-bug"></i> Additional Pages <span class="fa fa-chevron-down"></span></a></li>
-                    </li> -->
-                </ul>
-            </div>
-
         </div>
         <!-- /sidebar menu -->
 
         <!-- /menu footer buttons -->
-        <!-- <div class="sidebar-footer hidden-small">
+        <div class="sidebar-footer hidden-small">
             <a data-toggle="tooltip" data-placement="top" title="Settings">
                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
             </a>
@@ -79,7 +55,7 @@
             <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
                 <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
             </a>
-        </div> -->
+        </div>
         <!-- /menu footer buttons -->
     </div>
 </div>

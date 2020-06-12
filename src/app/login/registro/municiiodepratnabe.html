@@ -1,0 +1,38 @@
+<div class="row">
+
+    <!-- ----------------------------------------------------------------------------------------------------- -->
+    <!-- ------------------------------------------ Departamento --------------------------------------------- -->
+    <!-- ----------------------------------------------------------------------------------------------------- -->
+
+    <div class="col-6 form-group">
+        <label for="departamento">Departamento * </label>
+        <select class="form-control" name="departamento" formControlName="departamento" required [class.is-invalid]="formulario.get('departamento').errors &&
+                                                                                                                     formulario.get('departamento').touched">
+            <option value="">nariño</option>
+        </select>
+
+        <!-- Validaciones  -->
+        <div *ngIf="(formulario.get('departamento').errors && formulario.get('departamento').touched)">
+            <p class="text-danger">* Error este campo es requerido</p>
+        </div>
+
+    </div>
+
+    <!-- ----------------------------------------------------------------------------------------------------- -->
+    <!-- ---------------------------------------------- Ciudad ----------------------------------------------- -->
+    <!-- ----------------------------------------------------------------------------------------------------- -->
+    <div class="col-6 form-group">
+        <label for="municipio">Ciudad * </label>
+
+        <select class="form-control" name="municipio" formControlName="municipio" required [class.is-invalid]="formulario.get('municipio').errors &&
+                                                                                                               formulario.get('municipio').touched">
+            <option value="">pasto</option>
+        </select>
+
+        <!-- Validaciones  -->
+        <div *ngIf="(formulario.get('municipio').errors && formulario.get('municipio').touched)">
+            <p class="text-danger">* Error este campo es requerido</p>
+        </div>
+
+    </div>
+</div>

@@ -8,8 +8,18 @@ import { AppComponent } from './app.component';
 
 // Modulo aplicacion
 import { AplicacionModule } from './aplicacion/aplicacion.module';
+
+// Registro y login
 import { LoginComponent } from './login/login/login.component';
 import { RegistroComponent } from './login/registro/registro.component';
+import { PaginaComponent } from './aplicacion/pagina.component';
+
+// Servicios modulo
+import { ServicesModule } from './services/services.module';
+
+// Formularios
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 
 @NgModule({
@@ -17,11 +27,15 @@ import { RegistroComponent } from './login/registro/registro.component';
     AppComponent,
     LoginComponent,
     RegistroComponent,
+    PaginaComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AplicacionModule
+    AplicacionModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ServicesModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -10,102 +10,197 @@
 
 
 
-        <form action="#">
+        <form ngNativeValidate [formGroup]="formulario" (ngSubmit)="registrarEmpresa()">
 
             <div class="text-center">
-                <h1 class="display-4" style="color: grey;">Registrese con nosotros</h1>
+                <h1 class="display-4" style="color: #6c757d;">Registrese con nosotros</h1>
             </div>
+            <hr>
 
             <!-- ----------------------------------------------------------------------------------------------------- -->
             <!-- ----------------------------------------- NOMBRE EMPRESA -------------------------------------------- -->
             <!-- ----------------------------------------------------------------------------------------------------- -->
             <div class="row pt-3">
                 <div class="col-12 form-group">
-                    <label for="">Nombre de la empresa</label>
-                    <input type="text" class="form-control">
+                    <label for="empresa">Nombre de la empresa * </label>
+                    <input class="form-control" type="text" name="empresa" formControlName="empresa" [class.is-invalid]="(formulario.get('empresa').errors && formulario.get('empresa').touched) || (formulario.get('empresa').errors && valido === 'invalido')">
                 </div>
             </div>
 
-
-            <div class="row">
-
-
-                <!-- ----------------------------------------------------------------------------------------------------- -->
-                <!-- ---------------------------------------------- Codigo ----------------------------------------------- -->
-                <!-- ----------------------------------------------------------------------------------------------------- -->
-                <div class="col-5 form-group">
-                    <label for="">Codigo</label>
-                    <input type="text" class="form-control">
-                </div>
-
-
-                <!-- ----------------------------------------------------------------------------------------------------- -->
-                <!-- ----------------------------------------------- Nit ------------------------------------------------- -->
-                <!-- ----------------------------------------------------------------------------------------------------- -->
-                <div class="col-5">
-                    <label for="">Nit</label>
-                    <input type="text" class="form-control">
-                </div>
-
-
-                <!-- ----------------------------------------------------------------------------------------------------- -->
-                <!-- -------------------------------------------- Codigo Nit --------------------------------------------- -->
-                <!-- ----------------------------------------------------------------------------------------------------- -->
-                <div class="col-2">
-                    <label for="">Codigo de nit</label>
-                    <input type="text" class="form-control">
-                </div>
-
+            <!-- Validaciones  -->
+            <div *ngIf="formulario.get('empresa').errors && formulario.get('empresa').touched">
+                <p class="text-danger">* Error este campo es requerido</p>
             </div>
-
 
             <div class="row">
 
                 <!-- ----------------------------------------------------------------------------------------------------- -->
                 <!-- --------------------------------------------- Telefono ---------------------------------------------- -->
                 <!-- ----------------------------------------------------------------------------------------------------- -->
-                <div class="col-6 form-group">
-                    <label for="">Telefono</label>
-                    <input type="text" class="form-control">
+                <div class="col-5 form-group">
+                    <label for="telefonoEmpresa">Telefono Empresa * </label>
+                    <input type="number" id="telefonoEmpresa" name="telefonoEmpresa" formControlName="telefonoEmpresa" class="form-control" required (change)="lengthNumeros($event, 7, 15)" [class.is-invalid]="(formulario.get('telefonoEmpresa').errors && formulario.get('telefonoEmpresa').touched) || (formulario.get('telefonoEmpresa').errors && valido === 'invalido')">
+
+                    <!-- Validaciones  -->
+                    <div *ngIf="(formulario.get('telefonoEmpresa').errors && formulario.get('telefonoEmpresa').touched)">
+                        <p class="text-danger">* Error este campo es requerido</p>
+                    </div>
+
+                    <div>
+                        <p class="text-danger" id="p-telefonoEmpresa" style="display: none;">* Número invalido, debe contener al menos 7 caracteres.</p>
+                    </div>
+
                 </div>
+
+                <!-- ----------------------------------------------------------------------------------------------------- -->
+                <!-- ----------------------------------------------- Nit ------------------------------------------------- -->
+                <!-- ----------------------------------------------------------------------------------------------------- -->
+                <div class="col-5">
+                    <label for="nit">Nit * </label>
+                    <input type="number" id="nit" name="nit" formControlName="nit" class="form-control" minlength="3" required (change)="lengthNumeros($event, 7, 20)" [class.is-invalid]="(formulario.get('nit').errors && formulario.get('nit').touched) || (formulario.get('nit').errors && valido === 'invalido')">
+
+                    <!-- Validaciones  -->
+                    <div *ngIf="(formulario.get('nit').errors && formulario.get('nit').touched)">
+                        <p class="text-danger">* Error este campo es requerido</p>
+                    </div>
+
+                    <div>
+                        <p class="text-danger" id="p-nit" style="display: none;">* Número invalido, debe contener al menos 7 caracteres.</p>
+                    </div>
+
+                </div>
+
+                <!-- ----------------------------------------------------------------------------------------------------- -->
+                <!-- -------------------------------------------- Codigo Nit --------------------------------------------- -->
+                <!-- ----------------------------------------------------------------------------------------------------- -->
+                <div class="col-2">
+                    <label for="codigoNit">Codigo de nit * </label>
+                    <input type="number" name="codigoNit" formControlName="codigoNit" class="form-control" required [class.is-invalid]="(formulario.get('nit').errors && formulario.get('nit').touched) || (formulario.get('nit').errors && valido === 'invalido')">
+
+                    <!-- Validaciones  -->
+                    <div *ngIf="(formulario.get('codigoNit').errors && formulario.get('codigoNit').touched)">
+                        <p class="text-danger">* Requerido</p>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="row">
 
 
                 <!-- ----------------------------------------------------------------------------------------------------- -->
                 <!-- -------------------------------------------- Direccion ---------------------------------------------- -->
                 <!-- ----------------------------------------------------------------------------------------------------- -->
-                <div class="col-6 form-group">
-                    <label for="">Direccion</label>
-                    <input type="text" class="form-control">
-                </div>
-            </div>
-
-            <div class="row">
-
-                <!-- ----------------------------------------------------------------------------------------------------- -->
-                <!-- ------------------------------------------ Departamento --------------------------------------------- -->
-                <!-- ----------------------------------------------------------------------------------------------------- -->
-                <div class="col-6 form-group">
-                    <label for="">Departamento</label>
-                    <input type="text" class="form-control">
-                </div>
-
-                <!-- ----------------------------------------------------------------------------------------------------- -->
-                <!-- ---------------------------------------------- Ciudad ----------------------------------------------- -->
-                <!-- ----------------------------------------------------------------------------------------------------- -->
-                <div class="col-6 form-group">
-                    <label for="">Ciudad</label>
-                    <input type="text" class="form-control">
-                </div>
-            </div>
-
-
-            <!-- ----------------------------------------------------------------------------------------------------- -->
-            <!-- ---------------------------------------------- Email ------------------------------------------------ -->
-            <!-- ----------------------------------------------------------------------------------------------------- -->
-            <div class="row">
                 <div class="col-12 form-group">
-                    <label for="">Email</label>
-                    <input type="text" class="form-control">
+                    <label for="direccion">Direccion * </label>
+                    <input type="text" name="direccion" formControlName="direccion" class="form-control" required [class.is-invalid]="(formulario.get('direccion').errors && formulario.get('direccion').touched) || (formulario.get('direccion').errors && valido === 'invalido')">
+
+
+                    <!-- Validaciones  -->
+                    <div *ngIf="(formulario.get('direccion').errors && formulario.get('direccion').touched)">
+                        <p class="text-danger">* Error este campo es requerido</p>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- {{formulario.errors.errorTelefono | json}} -->
+
+            <!-- ----------------------------------------------------------------------------------------------------- -->
+            <!-- --------------------------------------- Datos Representante ----------------------------------------- -->
+            <!-- ----------------------------------------------------------------------------------------------------- -->
+
+            <h5 style="color: #6c757d;" class="text-center pt-5">Datos del representante legal</h5>
+            <hr>
+
+
+            <div class="row">
+
+                <!-- ----------------------------------------------------------------------------------------------------- -->
+                <!-- -------------------------------------------- Nombres --------------------------------------------- -->
+                <!-- ----------------------------------------------------------------------------------------------------- -->
+                <div class="col-6 form-group">
+                    <label for="nombres">Nombres</label>
+                    <input type="text" name="nombres" formControlName="nombres" class="form-control" required [class.is-invalid]="(formulario.get('nombres').errors && formulario.get('nombres').touched) || (formulario.get('nombres').errors && valido === 'invalido')">
+
+                    <!-- Validaciones  -->
+                    <div *ngIf="(formulario.get('nombres').errors && formulario.get('nombres').touched)">
+                        <p class="text-danger" *ngIf="formulario.get('nombres').getError('required')">* Error este campo es requerido</p>
+                        <p class="text-danger" *ngIf="formulario.get('nombres').getError('pattern')"></p>
+                    </div>
+
+                </div>
+
+                <!-- ----------------------------------------------------------------------------------------------------- -->
+                <!-- -------------------------------------------- Apellidos ---------------------------------------------- -->
+                <!-- ----------------------------------------------------------------------------------------------------- -->
+                <div class="col-6 form-group">
+                    <label for="apellidos">Apellidos</label>
+                    <input type="text" name="apellidos" formControlName="apellidos" class="form-control" required [class.is-invalid]="(formulario.get('apellidos').errors && formulario.get('apellidos').touched) || (formulario.get('apellidos').errors && valido === 'invalido')">
+
+                    <!-- Validaciones  -->
+                    <div *ngIf="(formulario.get('apellidos').errors && formulario.get('apellidos').touched)">
+                        <p class="text-danger" *ngIf="formulario.get('apellidos').getError('required')">* Error este campo es requerido</p>
+                        <p class="text-danger" *ngIf="formulario.get('apellidos').getError('pattern')"></p>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="row">
+
+                <!-- ----------------------------------------------------------------------------------------------------- -->
+                <!-- ---------------------------------------------- Cedula ----------------------------------------------- -->
+                <!-- ----------------------------------------------------------------------------------------------------- -->
+                <div class="col-6 form-group">
+                    <label for="cedula">Cedula * </label>
+                    <input type="number" id="cedula" name="cedula" formControlName="cedula" class="form-control" required required (change)="lengthNumeros($event, 7, 20)" [class.is-invalid]="(formulario.get('cedula').errors && formulario.get('cedula').touched) || (formulario.get('cedula').errors && valido === 'invalido')">
+
+                    <!-- Validaciones  -->
+                    <div *ngIf="(formulario.get('cedula').errors && formulario.get('cedula').touched)">
+                        <p class="text-danger">* Error este campo es requerido</p>
+                    </div>
+
+                    <div>
+                        <p class="text-danger" id="p-cedula" style="display: none;">* Número invalido, debe contener al menos 7 caracteres.</p>
+                    </div>
+                </div>
+
+                <!-- ----------------------------------------------------------------------------------------------------- -->
+                <!-- --------------------------------------------- Telefono ---------------------------------------------- -->
+                <!-- ----------------------------------------------------------------------------------------------------- -->
+                <div class="col-6 form-group">
+                    <label for="telefono">Telefono * </label>
+                    <input type="number" id="telefono" name="telefono" formControlName="telefono" class="form-control" required (change)="lengthNumeros($event, 7, 20)" [class.is-invalid]="(formulario.get('telefono').errors && formulario.get('telefono').touched) || (formulario.get('telefono').errors && valido === 'invalido')">
+
+                    <!-- Validaciones  -->
+                    <div *ngIf="(formulario.get('telefono').errors && formulario.get('telefono').touched)">
+                        <p class="text-danger">* Error este campo es requerido</p>
+                    </div>
+
+                    <div>
+                        <p class="text-danger" id="p-telefono" style="display: none;">* Número invalido, debe contener al menos 7 caracteres.</p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <!-- ----------------------------------------------------------------------------------------------------- -->
+                <!-- ---------------------------------------------- Email ------------------------------------------------ -->
+                <!-- ----------------------------------------------------------------------------------------------------- -->
+                <div class="col">
+                    <label for="email">Email * </label>
+                    <input type="email" name="email" formControlName="email" class="form-control" required [class.is-invalid]="(formulario.get('email').errors && formulario.get('email').touched) || (formulario.get('email').errors && valido === 'invalido')">
+
+                    <!-- Validaciones  -->
+                    <div *ngIf="(formulario.get('email').errors && formulario.get('email').touched)">
+                        <p class="text-danger">Email invalido.</p>
+                    </div>
+
                 </div>
             </div>
 
@@ -115,16 +210,28 @@
                 <!-- -------------------------------------------- Contraseña --------------------------------------------- -->
                 <!-- ----------------------------------------------------------------------------------------------------- -->
                 <div class="col-6 form-group">
-                    <label for="">Contraseña</label>
-                    <input type="text" class="form-control">
+                    <label for="contrasena">Contraseña * </label>
+                    <input type="password" name="contrasena" formControlName="contrasena" class="form-control" required [class.is-invalid]="(formulario.get('contrasena').errors && formulario.get('contrasena').touched) || (formulario.get('contrasena').errors && valido === 'invalido')">
+
+                    <!-- Validaciones  -->
+                    <div *ngIf="(formulario.get('contrasena').errors && formulario.get('contrasena').touched)">
+                        <p class="text-danger" *ngIf="formulario.get('contrasena').getError('required')">* Error este campo es requerido</p>
+                        <p class="text-danger" *ngIf="formulario.get('contrasena').getError('minlength')">* Cantidad minima de caracteres (8)</p>
+                    </div>
                 </div>
 
                 <!-- ----------------------------------------------------------------------------------------------------- -->
                 <!-- -------------------------------------- Confirmar contraseña ----------------------------------------- -->
                 <!-- ----------------------------------------------------------------------------------------------------- -->
                 <div class="col-6 form-group">
-                    <label for="">Confirmar contraseña</label>
-                    <input type="text" class="form-control">
+                    <label for="contrasena2">Confirmar contraseña</label>
+                    <input type="password" name="contrasena2" formControlName="contrasena2" class="form-control" required [class.is-invalid]="(formulario.get('contrasena').value !=formulario.get('contrasena2').value ) && formulario.get('contrasena2').touched || ( (formulario.get('contrasena').errors && formulario.get('contrasena2').touched) || ( formulario.get('contrasena').errors && valido === 'invalido') )">
+                    <!-- Validaciones  -->
+                    <div *ngIf="(formulario.get('contrasena').value !=formulario.get('contrasena2').value ) && formulario.get('contrasena2').touched || (formulario.get('contrasena').errors && formulario.get('contrasena2').touched )">
+                        <p class="text-danger">* Las contraseñas no coinciden</p>
+                    </div>
+                    <!-- (formulario.get('contrasena').value != formulario.get('contrasena2').value ) || -->
+
                 </div>
             </div>
 
@@ -135,7 +242,7 @@
 
             <div class="text-center pt-3">
                 <button type="button" class="btn btn-secondary btn-lg" routerLink="/login">Inicio</button>
-                <button type="button" class="btn btn-secondary btn-lg" routerLink="/home">Registrarse</button>
+                <button type="submit" class="btn btn-secondary btn-lg">Registrarse</button>
             </div>
 
         </form>

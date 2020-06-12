@@ -1,0 +1,50 @@
+<div class="container-fluid" style="padding-top: 30px;">
+    <input class="form-control" type="text" placeholder="Buscar Usuario" aria-label="Search">
+</div>
+<br>
+<div class="container-fluid">
+    <button class="btn btn-success" routerLink="/crear-usuario">Registrar Usuario</button>
+</div>
+
+<div class="container-fluid">
+
+
+    <div class="x_panel">
+        <div class="x_title">
+            <h2>Usuarios Registrados <small>( {{usuarios.length}} )</small></h2>
+            <div class="clearfix"></div>
+        </div>
+
+        <div class="x_content">
+            <table class="table jambo_table">
+                <thead>
+                    <tr>
+                        <th>Imagen</th>
+                        <th>Nombres</th>
+                        <th>Apellidos</th>
+                        <th>Correo</th>
+                        <th>Rol</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let u of usuarios">
+                        <th><img class="img-50 img-circle pointer" src="assets/images/user.png"></th>
+                        <td>{{u.nombres}}</td>
+                        <td>{{u.apellidos}}</td>
+                        <td>{{u.correo}}</td>
+                        <td>{{u.rol.rol}}</td>
+                        <td class="text-right">
+                            <button class="btn btn-warning" style="color: white !important;"><i class="fa fa-pencil"></i></button>
+                            <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+
+
+</div>

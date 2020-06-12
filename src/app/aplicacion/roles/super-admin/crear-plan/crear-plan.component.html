@@ -1,0 +1,115 @@
+<!-- ----------------------------------------------------------------------------------------------------- -->
+<!-- ----------------------------------------- FORM CREAR PLAN ------------------------------------------- -->
+<!-- ----------------------------------------------------------------------------------------------------- -->
+
+<form ngNativeValidate #formulario="ngForm" class="form-horizontal form-label-left pb-5" (ngSubmit)="guardarPlan(formulario)">
+
+    <!-- ----------------------------------------------------------------------------------------------------- -->
+    <!-- ----------------------------------------- NOMBRE DEL PLAN ------------------------------------------- -->
+    <!-- ----------------------------------------------------------------------------------------------------- -->
+
+    <div class="item form-group">
+        <label class="col-form-label col-md-3 col-sm-3 label-align">Nombre del plan <span class="required">*</span>
+      </label>
+        <div class="col-md-6 col-sm-6 ">
+            <input ngModel name="nombrePlan" type="text" required="required" class="form-control ">
+        </div>
+    </div>
+
+    <!-- ----------------------------------------------------------------------------------------------------- -->
+    <!-- --------------------------------------- Numero de personas ------------------------------------------ -->
+    <!-- ----------------------------------------------------------------------------------------------------- -->
+
+    <div class="item form-group">
+        <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Número de personas <span class="required">*</span></label>
+        <div class="col-md-6 col-sm-6 ">
+            <input ngModel name="numeroPersonas" class="form-control" type="number" name="numeroPersonas" min="1" max="30">
+        </div>
+    </div>
+
+    <!-- ----------------------------------------------------------------------------------------------------- -->
+    <!-- --------------------------------------- Valor por persona ------------------------------------------ -->
+    <!-- ----------------------------------------------------------------------------------------------------- -->
+
+    <div class="item form-group">
+        <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Valor por persona adicional</label>
+        <div class="col-md-6 col-sm-6 ">
+            <input ngModel name="valorPersona" class="form-control" type="number" min="0">
+        </div>
+    </div>
+
+    <!-- ----------------------------------------------------------------------------------------------------- -->
+    <!-- ------------------------------------------ Forma de pago -------------------------------------------- -->
+    <!-- ----------------------------------------------------------------------------------------------------- -->
+
+    <div class="item form-group">
+        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Forma de pago<span class="required">*</span>
+      </label>
+        <div class="col-md-6 col-sm-6 ">
+            <select ngModel name="formaPago" class="form-control" id="">
+                <option value="Contado">Contado</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- ----------------------------------------------------------------------------------------------------- -->
+    <!-- ---------------------------------------- Numero de cuotas ------------------------------------------- -->
+    <!-- ----------------------------------------------------------------------------------------------------- -->
+
+    <div class="item form-group">
+        <label class="col-form-label col-md-3 col-sm-3 label-align">Valor anual <span class="required">*</span>
+      </label>
+        <div class="col-md-6 col-sm-6 ">
+            <input ngModel name="numeroCuotas" ngModel name="valorAnual" class="date-picker form-control" required="required" type="number" min="0">
+        </div>
+    </div>
+
+    <!-- ----------------------------------------------------------------------------------------------------- -->
+    <!-- ---------------------------------------- Numero de cuotas ------------------------------------------- -->
+    <!-- ----------------------------------------------------------------------------------------------------- -->
+
+    <div class="item form-group">
+        <label class="col-form-label col-md-3 col-sm-3 label-align">Número de Cuotas <span class="required">*</span>
+      </label>
+        <div class="col-md-6 col-sm-6 ">
+            <input ngModel name="numeroCuotas" class="date-picker form-control" required="required" type="number" min="2" max="12">
+        </div>
+    </div>
+
+    <!-- ----------------------------------------------------------------------------------------------------- -->
+    <!-- -------------------------------------------- Carencias ---------------------------------------------- -->
+    <!-- ----------------------------------------------------------------------------------------------------- -->
+
+
+    <div class="item form-group">
+        <label class="col-form-label col-md-3 col-sm-3 label-align">Carencias <span class="required">*</span>
+      </label>
+        <div class="col-md-6 col-sm-6 ">
+            <textarea ngModel name="carencias" style="width: 100%;" class="form-control"></textarea>
+        </div>
+    </div>
+
+    <!-- ----------------------------------------------------------------------------------------------------- -->
+    <!-- ------------------------------------------- Descripcion --------------------------------------------- -->
+    <!-- ----------------------------------------------------------------------------------------------------- -->
+
+    <div class="item form-group">
+        <label class="col-form-label col-md-3 col-sm-3 label-align">Descripción <span class="required">*</span>
+      </label>
+        <div class="col-md-6 col-sm-6 ">
+            <textarea ngModel name="descripcion" style="width: 100%;" class="form-control"></textarea>
+        </div>
+    </div>
+    <div class="ln_solid"></div>
+
+    <!-- ----------------------------------------------------------------------------------------------------- -->
+    <!-- ----------------------------------------- Btn crear plan -------------------------------------------- -->
+    <!-- ----------------------------------------------------------------------------------------------------- -->
+
+    <div class="item form-group">
+        <div class="col-md-6 col-sm-6 offset-md-3 text-right">
+            <button type="submit" class="btn btn-success">Crear plan</button>
+        </div>
+    </div>
+
+</form>
