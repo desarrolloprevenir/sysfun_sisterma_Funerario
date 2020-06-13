@@ -77,7 +77,7 @@ export class RegistroComponent implements OnInit {
         let usuario = new Usuario (null, this.formulario.value.cedula, this.formulario.value.nombres, this.formulario.value.apellidos,
                                    this.formulario.value.email, 'Representante Legal',
                                    this.encriptarService.encriptar(this.formulario.value.contrasena), this.formulario.value.telefono,
-                                   this.formulario.value.nit, 1 );
+                                   this.formulario.value.nit, [], {rol: 'Super Admin', opciones: [] } );
 
         let provedor = {
           nit : this.formulario.value.nit,

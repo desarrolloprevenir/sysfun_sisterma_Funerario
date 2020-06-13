@@ -13,15 +13,18 @@ import { ServicesModule } from '../services/services.module';
 // Formularios
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+// Pipes
+import { PipeModule } from '../pipes/pipe.module';
+
 // components
 import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { UsuariosComponent } from './modulos/administracion/usuarios/ver-usuarios/usuarios.component';
+import { UsuariosComponent } from './modulos/administracion/usuarios/usuarios.component';
 import { CrearPlanComponent } from './roles/super-admin/crear-plan/crear-plan.component';
 import { VerPlanesComponent } from './roles/super-admin/ver-planes/ver-planes.component';
 import { TituloComponent } from './titulo/titulo.component';
 import { LlenarPlanComponent } from './roles/usuarios/llenar-plan/llenar-plan.component';
-import { CrearUsuarioComponent } from './modulos/administracion/usuarios/crear-usuario/crear-usuario.component';
+import { CrearUsuarioComponent } from './modulos/administracion/usuarios/crear-usuario.component';
 
 
 @NgModule({
@@ -43,7 +46,8 @@ import { CrearUsuarioComponent } from './modulos/administracion/usuarios/crear-u
     PagesRoutesModule,
     ServicesModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    PipeModule
   ], exports: [
     MenuLateralComponent,
     TopNavegationComponent,

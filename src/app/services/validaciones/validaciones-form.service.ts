@@ -15,7 +15,7 @@ export class ValidacionesFormService {
               // console.log('valido');
               return true;
            }
-
+      // console.log('invalido');
       return false;
 
   }

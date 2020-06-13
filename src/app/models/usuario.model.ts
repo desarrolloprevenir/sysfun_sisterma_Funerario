@@ -10,10 +10,10 @@ export class Usuario {
         public contrasena?: string,
         public telefono?: number,
         public nit?: string,
-        public roles_id?: number,
         public menu?: [],
         public rol?: { rol: string, opciones: [] },
-        public empresa?: {_id: string, nombre: string, nit: string, direccion: string, telefono: string}
+        public imagen?: string,
+        public empresa?: {_id: string, nombre: string, nit: string, direccion: string, telefono: string},
     ) { }
 
 }
