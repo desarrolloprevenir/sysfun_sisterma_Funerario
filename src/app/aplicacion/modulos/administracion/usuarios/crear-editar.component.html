@@ -1,4 +1,4 @@
-<form ngNativeValidate class="form-label-left" [formGroup]="formUsuario" (ngSubmit)="registrarUsuario()">
+<form ngNativeValidate class="form-label-left" [formGroup]="formUsuario" (ngSubmit)="registrarEditarUsuario()" *ngIf="editar === 'editar' || editar === 'crear'">
 
     <div class="x_content">
 
@@ -74,23 +74,23 @@
 
 
                 <!-- CREAR -->
-                <div class="col-md-6 col-sm-6  form-group has-feedback" *ngIf="!editar">
+                <div class="col-md-6 col-sm-6  form-group has-feedback" *ngIf="editar === 'crear'">
                     <select class="form-control has-feedback-left" formControlName="rol" (change)="menu($event)" required>
-                        <option value="Rol" selected disabled>Rol</option>
-                        <option value="Admin">Administrador</option>
-                        <option value="User">Usuario</option>
-                    </select>
+                            <option value="Rol" selected disabled>Rol</option>
+                            <option value="Admin">Administrador</option>
+                            <option value="User">Usuario</option>
+                        </select>
                     <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                 </div>
 
 
                 <!-- EDITAR -->
-                <div class="col-md-6 col-sm-6  form-group has-feedback" *ngIf="editar">
+                <div class="col-md-6 col-sm-6  form-group has-feedback" *ngIf="editar === 'editar'">
                     <select class="form-control has-feedback-left" formControlName="rol" required>
-                        <option value="Rol" selected disabled>Rol</option>
-                        <option value="Admin">Administrador</option>
-                        <option value="User">Usuario</option>
-                    </select>
+                            <option value="Rol" selected disabled>Rol</option>
+                            <option value="Admin">Administrador</option>
+                            <option value="User">Usuario</option>
+                        </select>
                     <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                 </div>
             </div>
@@ -128,7 +128,10 @@
                 </div>
             </div>
 
-            <div class="row">
+
+            <!-- CREAR  -->
+
+            <div class="row" *ngIf="editar === 'crear'">
 
                 <!-- ----------------------------------------------------------------------------------------------------- -->
                 <!-- ------------------------------------------- Contraseña ---------------------------------------------- -->
@@ -150,6 +153,53 @@
                     <div *ngIf="formUsuario.get('confirmContrasena').touched && (formUsuario.value.contrasena != formUsuario.value.confirmContrasena)">
                         <p style="color: #2a3f54;">* Las contraseñas no coinciden</p>
                     </div>
+                </div>
+            </div>
+
+
+            <!-- EDITAR -->
+            <!-- Cambio de contraseña usuario a editar -->
+
+
+
+            <div *ngIf="editar === 'editar'">
+                <button class="btn btn-primary" id="btn-cambio-contra" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" (click)="cambioContra()">
+                            cambiar contraseña
+                        </button>
+
+            </div>
+
+
+
+            <div class="collapse" id="collapseExample">
+                <div class="card card-body" *ngIf="editar === 'editar'">
+
+                    <div class="row">
+
+                        <!-- ----------------------------------------------------------------------------------------------------- -->
+                        <!-- ------------------------------------------- Contraseña ---------------------------------------------- -->
+                        <!-- ----------------------------------------------------------------------------------------------------- -->
+                        <div class="col-md-6 col-sm-6  form-group has-feedback">
+                            <input type="password" class="form-control has-feedback-left" placeholder="Nueva Contraseña *" formControlName="contrasena" required>
+                            <span class="fa fa-key form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+
+
+                        <!-- ----------------------------------------------------------------------------------------------------- -->
+                        <!-- --------------------------------------- Confirmar Contraseña ---------------------------------------- -->
+                        <!-- ----------------------------------------------------------------------------------------------------- -->
+
+                        <div class="col-md-6 col-sm-6  form-group has-feedback">
+                            <input type="password" class="form-control has-feedback-left" placeholder="Confirmar Contraseña *" formControlName="confirmContrasena" required>
+                            <span class="fa fa-key form-control-feedback left" aria-hidden="true"></span>
+                            <br>
+                            <div *ngIf="formUsuario.get('confirmContrasena').touched && (formUsuario.value.contrasena != formUsuario.value.confirmContrasena)">
+                                <p style="color: #2a3f54;">* Las contraseñas no coinciden</p>
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
             </div>
 
@@ -262,7 +312,7 @@
     <div class="ln_solid"></div>
     <div class="form-group">
         <div class="text-center">
-            <button type="submit" style="background-color: #26B99A !important;" class="btn btn-success">Registrar Usuario</button>
+            <button class="btn btn-success'" type="submit" style="background-color: #26B99A !important;">  <span *ngIf="editar === 'editar'" style="color: white !important;">Editar Usuario</span>  <span *ngIf="editar === 'crear'" style="color: white !important;">Crear Usuario</span></button>
         </div>
     </div>
 

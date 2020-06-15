@@ -23,7 +23,7 @@ const routes: Routes = [
       {path: 'crear-usuario', component: CrearEditarComponent , canActivate : [AuthorisationGuard],
               data: {titulo : 'Crear Usuario' , m: 1, sm: 0, p : 'crear'}},
       {path: 'editar-usuario/:idUsuario', component: CrearEditarComponent , canActivate : [AuthorisationGuard],
-              data: {titulo : 'Crear Usuario' , m: 1, sm: 0, p : 'editar'}},
+              data: {titulo : 'Editar Usuario' , m: 1, sm: 0, p : 'editar'}},
 
       // planes
       {path: 'crear-plan', component: CrearPlanComponent, data: {titulo : 'Crear plan'}},

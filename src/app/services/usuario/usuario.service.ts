@@ -149,15 +149,27 @@ registrarUsuario(usuario: Usuario) {
                   });
 }
 
+
 // ======================================
-// Verificar Permisos
+// Editar Usuario
 // ======================================
 
-  verificarPermisos() {
-    
-  }
-
-
+editUser(usuario: Usuario) {
+  return this.http.put(apiUrl + '/usuario' + '?token=' + this.token, usuario)
+             .map( (res: any) => {
+              // console.log(res);
+              Swal.fire('Usuario editado', 'El usuario ' + res.usuario.nombres + ' ' + res.usuario.apellidos
+              + '. Fue creado editado', 'success');
+              this.router.navigate(['/usuarios']);
+              return true;
+             }).catch( err => {
+              Swal.fire('Error', err.error.mensaje, 'error');
+              if (err.status === 401) {
+                this.logout();
+              }
+              return Observable.throw(err);
+          });
+}
 
 // ======================================
 // Menu según rol
