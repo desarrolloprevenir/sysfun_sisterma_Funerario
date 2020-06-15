@@ -51,7 +51,7 @@
                 <!-- --------------------------------------------- Apellidos --------------------------------------------- -->
                 <!-- ----------------------------------------------------------------------------------------------------- -->
                 <div class="col-md-6 col-sm-6  form-group has-feedback">
-                    <input type="text" class="form-control has-feedback-left" placeholder="Apellidos *" formControlName="apellidos" formControlName="nombres" required pattern="[A-Z a-z ñ]*">
+                    <input type="text" class="form-control has-feedback-left" placeholder="Apellidos *" formControlName="apellidos" required pattern="[A-Z a-z ñ]*">
                     <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                 </div>
             </div>
@@ -72,8 +72,21 @@
                 <!-- ------------------------------------------------- Rol ----------------------------------------------- -->
                 <!-- ----------------------------------------------------------------------------------------------------- -->
 
-                <div class="col-md-6 col-sm-6  form-group has-feedback">
+
+                <!-- CREAR -->
+                <div class="col-md-6 col-sm-6  form-group has-feedback" *ngIf="!editar">
                     <select class="form-control has-feedback-left" formControlName="rol" (change)="menu($event)" required>
+                        <option value="Rol" selected disabled>Rol</option>
+                        <option value="Admin">Administrador</option>
+                        <option value="User">Usuario</option>
+                    </select>
+                    <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                </div>
+
+
+                <!-- EDITAR -->
+                <div class="col-md-6 col-sm-6  form-group has-feedback" *ngIf="editar">
+                    <select class="form-control has-feedback-left" formControlName="rol" required>
                         <option value="Rol" selected disabled>Rol</option>
                         <option value="Admin">Administrador</option>
                         <option value="User">Usuario</option>

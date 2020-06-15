@@ -61,8 +61,10 @@ login(usuario: any) {
 // Cerrar Sesion
 // ======================================
 logout() {
-  localStorage.removeItem('token');
-  localStorage.removeItem('user');
+  // localStorage.removeItem('token');
+  // localStorage.removeItem('user');
+
+  localStorage.clear();
   this.token = '';
   this.usuario = null;
   this.router.navigate(['/login']);
@@ -94,6 +96,17 @@ cargarInfo() {
   return info;
 }
 
+// ======================================
+// Get usuario por idUsuario
+// ======================================
+
+getUsuario(idUsuario) {
+  return this.http.get(apiUrl + '/usuario/' + idUsuario + '?token=' + this.token )
+                  .map((res: any) => {
+                    return res.usuario;
+                  });
+}
+
 
 // ======================================
 // Get usuarios por idEmpresa
@@ -104,7 +117,7 @@ getUsuarios(idEmpresa) {
   // console.log(idEmpresa, 'token' + this.token);
   return this.http.get(apiUrl + '/usuario/empresa/' + idEmpresa + '?token=' + this.token)
                   .map( (res: any) => {
-                        console.log(res);
+                        // console.log(res);
                         return res.usuarios;
                   }).catch( err => {
                       Swal.fire('Error', err.error.mensaje, 'error');
@@ -114,6 +127,36 @@ getUsuarios(idEmpresa) {
                       return Observable.throw(err);
                   });
 }
+
+
+// ======================================
+// Metodo para registrar un usuario
+// ======================================
+
+registrarUsuario(usuario: Usuario) {
+  return this.http.post(apiUrl + '/usuario', usuario)
+                  .map( (res: any) => {
+                    Swal.fire('Usuario creado', 'El usuario ' + res.usuario.nombres + ' ' + res.usuario.apellidos 
+                              + '. Fue creado exitosamente', 'success');
+                    return true;
+                  } )
+                  .catch( err => {
+                    Swal.fire(err.error.mensaje, err.error.errors.message, 'error');
+                    if (err.status === 401) {
+                      this.logout();
+                    }
+                    return Observable.throw(err);
+                  });
+}
+
+// ======================================
+// Verificar Permisos
+// ======================================
+
+  verificarPermisos() {
+    
+  }
+
 
 
 // ======================================

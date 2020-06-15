@@ -14,6 +14,7 @@ export class Usuario {
         public rol?: { rol: string, opciones: [] },
         public imagen?: string,
         public empresa?: {_id: string, nombre: string, nit: string, direccion: string, telefono: string},
+        public creadoPor?: {_id: string, cargo: string, nombres: string, apellidos: string}
     ) { }
 
 }

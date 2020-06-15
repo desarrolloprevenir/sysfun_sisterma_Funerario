@@ -24,7 +24,7 @@ import { CrearPlanComponent } from './roles/super-admin/crear-plan/crear-plan.co
 import { VerPlanesComponent } from './roles/super-admin/ver-planes/ver-planes.component';
 import { TituloComponent } from './titulo/titulo.component';
 import { LlenarPlanComponent } from './roles/usuarios/llenar-plan/llenar-plan.component';
-import { CrearUsuarioComponent } from './modulos/administracion/usuarios/crear-usuario.component';
+import { CrearEditarComponent } from './modulos/administracion/usuarios/crear-editar.component';
 
 
 @NgModule({
@@ -39,7 +39,7 @@ import { CrearUsuarioComponent } from './modulos/administracion/usuarios/crear-u
     VerPlanesComponent,
     TituloComponent,
     LlenarPlanComponent,
-    CrearUsuarioComponent,
+    CrearEditarComponent
   ],
   imports: [
     CommonModule,
