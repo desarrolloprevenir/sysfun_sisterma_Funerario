@@ -28,8 +28,10 @@ export class AuthorisationGuard implements CanActivate {
     switch (data.p) {
       case 'crear' :
         // console.log('desntro del switch', menu[data.m].subMenu[data.sm].permisos.crear);
-        if (menu[data.m].subMenu[data.sm].permisos.crear) {
-          return true;
+        if (menu[data.m].activo === true) {
+          if (menu[data.m].subMenu[data.sm].permisos.crear) {
+            return true;
+          }
         }
 
         Swal.fire('Falta Autorización', 'El usuario no tiene permiso para entrar en esta pagina', 'warning');
@@ -38,12 +40,25 @@ export class AuthorisationGuard implements CanActivate {
 
         case 'editar' :
 
-        if (menu[data.m].subMenu[data.sm].permisos.editar) {
-          return true;
+        if (menu[data.m].activo === true) {
+          if (menu[data.m].subMenu[data.sm].permisos.editar) {
+            return true;
+          }
         }
         Swal.fire('Falta Autorización', 'El usuario no tiene permiso para entrar en esta pagina', 'warning');
         this.location.back();
         return false;
+
+        default :
+        if (menu[data.m].activo === true) {
+          if (menu[data.m].subMenu[data.sm].ver) {
+            return true;
+          }
+        }
+        Swal.fire('Falta Autorización', 'El usuario no tiene permiso para entrar en esta pagina', 'warning');
+        this.location.back();
+        return false;
+
     }
 
 

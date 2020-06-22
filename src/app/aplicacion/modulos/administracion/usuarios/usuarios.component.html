@@ -29,14 +29,16 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let u of usuarios">
-                        <th><img class="img-50 img-circle pointer" src="assets/images/user.png"></th>
-                        <td>{{u.nombres}}</td>
-                        <td>{{u.apellidos}}</td>
-                        <td>{{u.correo}}</td>
-                        <td>{{u.rol.rol}}</td>
-                        <td class="text-right">
-                            <button class="btn btn-warning" style="color: white !important;" (click)="editarUsuario(u)"><i class="fa fa-pencil"></i></button>
-                            <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                        <th *ngIf="u._id !== idUsuario"><img class="img-50 img-circle pointer" [src]="this.apiUrl + '/imagenes/' + u.imagen"></th>
+                        <td *ngIf="u._id !== idUsuario">{{u.nombres}}</td>
+                        <td *ngIf="u._id !== idUsuario">{{u.apellidos}}</td>
+                        <td *ngIf="u._id !== idUsuario">{{u.correo}}</td>
+                        <td *ngIf="u._id !== idUsuario">{{u.rol.rol}}</td>
+                        <td *ngIf="u._id !== idUsuario" class="text-right">
+                            <div *ngIf="u._id !== idUsuario">
+                                <button class="btn btn-warning" style="color: white !important;" (click)="editarUsuario(u)" *ngIf="u.rol.rol !== 'Super Admin'"><i class="fa fa-pencil"></i></button>
+                                <button class="btn btn-danger" *ngIf="u.rol.rol !== 'Super Admin'" (click)="eliminarUsuario(u)"><i class="fa fa-trash"></i></button>
+                            </div>
                         </td>
                     </tr>
                 </tbody>

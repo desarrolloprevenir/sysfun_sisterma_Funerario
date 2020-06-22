@@ -25,6 +25,7 @@ import { VerPlanesComponent } from './roles/super-admin/ver-planes/ver-planes.co
 import { TituloComponent } from './titulo/titulo.component';
 import { LlenarPlanComponent } from './roles/usuarios/llenar-plan/llenar-plan.component';
 import { CrearEditarComponent } from './modulos/administracion/usuarios/crear-editar.component';
+import { PerfilComponent } from './modulos/perfil_y_organizacion/perfil/perfil.component';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { CrearEditarComponent } from './modulos/administracion/usuarios/crear-ed
     VerPlanesComponent,
     TituloComponent,
     LlenarPlanComponent,
-    CrearEditarComponent
+    CrearEditarComponent,
+    PerfilComponent
   ],
   imports: [
     CommonModule,

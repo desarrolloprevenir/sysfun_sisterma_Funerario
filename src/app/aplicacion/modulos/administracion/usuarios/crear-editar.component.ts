@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UsuarioService } from '../../../../services/usuario/usuario.service';
 import Swal from 'sweetalert2';
@@ -6,6 +6,8 @@ import { ValidacionesFormService } from '../../../../services/validaciones/valid
 import { Usuario } from 'src/app/models/usuario.model';
 import { EncriptarService } from '../../../../services/validaciones/encriptar.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { environment } from '../../../../../environments/environment.prod';
+import { ComunicacionComponentesService } from '../../../../services/comunicacion/comunicacion-componentes.service';
 
 @Component({
   selector: 'app-crear-editar',
@@ -20,12 +22,15 @@ export class CrearEditarComponent implements OnInit {
   public usuarioEdit: Usuario;
   public editar: string;
   public cambioContrasena = false;
+  public imagenTem: any;
+  public imagenSubir: File;
 
   constructor(private usuarioService: UsuarioService,
               private validaciones: ValidacionesFormService,
               private encriptar: EncriptarService,
               private router: Router,
-              private activatedRouter: ActivatedRoute) { }
+              private activatedRouter: ActivatedRoute,
+              private comunicacionService: ComunicacionComponentesService) { }
 
 
   // Ciclos de vida
@@ -42,6 +47,7 @@ export class CrearEditarComponent implements OnInit {
 
       // Crear
       this.inicializarFormulario();
+      this.imagenTem = environment.ApiUrl + '/imagenes/user.png';
       this.editar = 'crear';
     });
   }
@@ -60,7 +66,7 @@ export class CrearEditarComponent implements OnInit {
         contrasena : new FormControl ('', [Validators.required, Validators.minLength(8)]),
         confirmContrasena : new FormControl ('', [Validators.required]),
         cargo : new FormControl ('', [Validators.required]),
-        rol : new FormControl ('', [Validators.required]),
+        rol : new FormControl ('Rol', [Validators.required]),
     });
 
   }
@@ -93,10 +99,10 @@ export class CrearEditarComponent implements OnInit {
                        .subscribe( usuario => {
 
                         this.usuarioEdit = usuario;
-                        console.log(this.usuarioEdit);
                         this.menuyPermisos = this.usuarioEdit.menu;
-                        this.editar = 'editar';
+                        this.imagenTem = environment.ApiUrl + '/imagenes/' + this.usuarioEdit.imagen;
                         this.inicializarFormularioEdit();
+                        this.editar = 'editar';
     });
   }
 
@@ -118,6 +124,7 @@ export class CrearEditarComponent implements OnInit {
   // ------------------------------------------------ METODOS CREAR --------------------------------------------------------- //
 
   menu(ev) {
+    document.getElementById('pRol').style.display = 'none';
     this.menuyPermisos = this.usuarioService.menu(ev.target.value);
     this.menuyPermisos = this.menuyPermisos.menu;
     // console.log(this.menuyPermisos);
@@ -159,6 +166,13 @@ export class CrearEditarComponent implements OnInit {
     // Validaciones
     // console.log('validando ...');
 
+    // ROL
+
+    if (this.formUsuario.value.rol === 'Rol') {
+        document.getElementById('pRol').style.display = '';
+        return;
+    }
+
 
     // Contraseñas
 
@@ -195,14 +209,14 @@ export class CrearEditarComponent implements OnInit {
 
     // Validación length de numero de celular
     if (!this.validacionLenght(this.formUsuario.value.telefono, 7, 12, 'pContacto' )) {
-        console.log('fallo numero de contacto');
+        // console.log('fallo numero de contacto');
         window.scroll(0, 0);
         return;
     }
 
     // Validación length de cedula
     if (!this.validacionLenght(this.formUsuario.value.telefono, 7, 12, 'pContacto' )) {
-       console.log('fallo numero de cedula');
+      //  console.log('fallo numero de cedula');
        window.scroll(0, 0);
        return;
   }
@@ -254,13 +268,18 @@ export class CrearEditarComponent implements OnInit {
      {_id : this.usuario.empresa._id, nombre: '', nit : '', direccion : '', telefono: ''},
      {_id: this.usuario.creadoPor._id, cargo: '', nombres: '', apellidos : ''});
 
-    console.log(usuario);
+    // console.log(usuario);
 
     this.usuarioService.registrarUsuario(usuario).subscribe( res => {
-      if (res) {
-        this.router.navigate(['/usuarios']);
-        window.scroll(0, 0);
-        return;
+      if (res.ok) {
+
+        if (this.imagenSubir) {
+            this.subirImagen(res.idUsuario);
+        } else {
+            this.router.navigate(['/usuarios']);
+            window.scroll(0, 0);
+            return;
+        }
       }
 
       window.scroll(0, 0);
@@ -273,18 +292,38 @@ export class CrearEditarComponent implements OnInit {
       this.usuarioEdit.apellidos = this.formUsuario.value.apellidos;
       this.usuarioEdit.nombres = this.formUsuario.value.nombres;
       this.usuarioEdit.cargo = this.formUsuario.value.cargo;
-      // this.usuarioEdit.rol.rol = this.formUsuario.value.rol;
+      this.usuarioEdit.rol.rol = this.formUsuario.value.rol;
       this.usuarioEdit.telefono = this.formUsuario.value.telefono;
       this.usuarioEdit.menu = this.menuyPermisos;
 
       // console.log('editar', this.usuarioEdit);
-      this.usuarioService.editUser(this.usuarioEdit).subscribe();
+      this.usuarioService.editUser(this.usuarioEdit).subscribe( res => {
+        if (res.ok) {
+          if (this.imagenSubir) {
+              this.subirImagen(res.idUsuario);
+          } else {
+              this.router.navigate(['/usuarios']);
+              window.scroll(0, 0);
+              return;
+          }
+        }
+        window.scroll(0, 0);
+      });
 
     }
   }
 
+  subirImagen(idUsuario) {
+    this.usuarioService.cambiarImagen(this.imagenSubir, idUsuario, '/usuarios');
+    return;
+  }
+
 
   validacionLenght(numero: string, valor1: number, valor2: number, id: string): boolean {
+
+    if ( ( !numero)  || (!valor1) || (!valor2) ) {
+      return;
+    }
 
     var campo: any;
     if (!this.validaciones.lengthNumeros(numero.toString(), valor1, valor2)) {
@@ -296,6 +335,25 @@ export class CrearEditarComponent implements OnInit {
     campo = document.getElementById(id);
     campo.style.display = 'none';
     return true;
+  }
+
+  selecionarImagen(imagen: File) {
+    if (!imagen) {
+      this.imagenSubir = null;
+      return;
+    }
+
+    // console.log(imagen);
+    if (imagen.type.indexOf('image') < 0) {
+      Swal.fire('Solo imagenes', 'El archivo seleccionado no es una imagen', 'warning');
+      this.imagenSubir = null;
+      return;
+    }
+
+    this.imagenSubir = imagen;
+    let reader = new FileReader();
+    reader.readAsDataURL(imagen);
+    reader.onloadend = () => this.imagenTem = reader.result;
   }
 
 }

@@ -10,7 +10,6 @@ export class ValidacionesFormService {
   lengthNumeros(numero: string,
                 valor1: number,
                 valor2: number): boolean {
-
       if ( numero.length >= valor1 && numero.length <= valor2 ) {
               // console.log('valido');
               return true;
@@ -18,8 +17,7 @@ export class ValidacionesFormService {
       // console.log('invalido');
       return false;
 
-  }
-  
+   }
   }
 
 

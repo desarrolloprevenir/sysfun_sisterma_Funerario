@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Usuario } from '../../models/usuario.model';
 import * as $ from 'jquery';
+import { environment } from '../../../environments/environment.prod';
 
 @Component({
   selector: 'app-menu-lateral',
@@ -21,6 +22,8 @@ export class MenuLateralComponent implements OnInit {
   private $RIGHT_COL;
   private $NAV_MENU;
   private $FOOTER;
+
+  public apiUrl = environment.ApiUrl;
 
 
   // Variables componente

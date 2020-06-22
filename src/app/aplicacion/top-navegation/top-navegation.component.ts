@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { UsuarioService } from '../../services/usuario/usuario.service';
 import { Usuario } from '../../models/usuario.model';
 import * as $ from 'jquery';
+import { environment } from '../../../environments/environment.prod';
 
 @Component({
   selector: 'app-top-navegation',
@@ -10,6 +11,7 @@ import * as $ from 'jquery';
 })
 export class TopNavegationComponent implements OnInit {
   @Input() usuario: Usuario;
+  public apiUrl = environment.ApiUrl;
 
   constructor(public usuarioService: UsuarioService) { }
 

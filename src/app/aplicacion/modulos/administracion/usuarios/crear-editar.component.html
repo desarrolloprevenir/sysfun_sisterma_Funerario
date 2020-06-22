@@ -12,18 +12,29 @@
         <!-- --------------------------------------- Subir imagen usuario ---------------------------------------- -->
         <!-- ----------------------------------------------------------------------------------------------------- -->
 
-        <div class="col-md-3 col-sm-3  profile_left">
-            <div class="profile_img">
+        <div class="col-md-3 col-sm-3">
+            <div class="profile_img text-center">
                 <div id="crop-avatar">
                     <!-- Current avatar -->
 
-                    <img class="img-responsive avatar-view" style="width: 200px;" src="assets/images/profile-42914_1280.png" alt="Avatar" title="Change the avatar">
+                    <img class="img-responsive avatar-view" style="width: 150px;" [src]="imagenTem" alt="Avatar" title="Change the avatar">
+
+
+
+                    <div class="pt-2">
+                        <label for="file-upload" class="custom-file-upload btn btn-success">
+                            Selecionar Imagen
+                        </label>
+                        <input id="file-upload" type="file" style="display: none;" (change)="selecionarImagen($event.target.files[0])" />
+                    </div>
 
 
                 </div>
             </div>
-            <br>
-            <a type="button" class="btn btn-success"><i class="fa fa-edit m-right-xs"></i>&nbsp; Seleccionar imagen</a>
+
+
+
+
 
             <br>
         </div>
@@ -81,6 +92,7 @@
                             <option value="User">Usuario</option>
                         </select>
                     <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                    <p style="color: #2a3f54; display: none; padding-top: 5px;" id="pRol">* Este campo es requerido</p>
                 </div>
 
 

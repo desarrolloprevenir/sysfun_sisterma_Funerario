@@ -10,6 +10,8 @@ import { Observable } from 'rxjs/Observable';
 
 // modelos
 import { Usuario } from '../../models/usuario.model';
+import { SubirArchivosService } from './subir-archivos.service';
+import { ComunicacionComponentesService } from '../comunicacion/comunicacion-componentes.service';
 
 const apiUrl = environment.ApiUrl;
 
@@ -22,7 +24,8 @@ export class UsuarioService {
   public usuario: Usuario;
 
   constructor(public http: HttpClient,
-              public router: Router) {
+              public router: Router,
+              public subirArchivoService: SubirArchivosService) {
                }
 
 // ======================================
@@ -49,7 +52,7 @@ login(usuario: any) {
   return this.http.post( apiUrl + '/login', usuario )
                   .map( (resp: any) => {
                     // console.log(resp);
-                    this.guardarEnStorage(resp);
+                    this.guardarEnStorage(resp.token, resp.usuario);
                     this.router.navigate(['/home']);
                   }).catch( err => {
                     Swal.fire('Error', err.error.mensaje, 'error');
@@ -73,13 +76,13 @@ logout() {
 // ======================================
 // Guardar info  local storage
 // ======================================
-guardarEnStorage(usuario: any) {
+guardarEnStorage(token, usuario: any) {
   // console.log(usuario);
-  this.token = usuario.token;
-  this.usuario = usuario.usuario;
+  this.token = token;
+  this.usuario = usuario;
   localStorage.setItem('token', this.token);
   localStorage.setItem('user', JSON.stringify(this.usuario));
-  // this.cargarInfoToken();
+  this.cargarInfo();
 }
 
 
@@ -104,7 +107,13 @@ getUsuario(idUsuario) {
   return this.http.get(apiUrl + '/usuario/' + idUsuario + '?token=' + this.token )
                   .map((res: any) => {
                     return res.usuario;
-                  });
+                  }).catch( err => {
+                    Swal.fire('Error', err.error.mensaje, 'error');
+                    if (err.status === 401) {
+                      this.logout();
+                    }
+                    return Observable.throw(err);
+                });
 }
 
 
@@ -138,7 +147,7 @@ registrarUsuario(usuario: Usuario) {
                   .map( (res: any) => {
                     Swal.fire('Usuario creado', 'El usuario ' + res.usuario.nombres + ' ' + res.usuario.apellidos 
                               + '. Fue creado exitosamente', 'success');
-                    return true;
+                    return { ok: true, idUsuario: res.usuario._id };
                   } )
                   .catch( err => {
                     Swal.fire(err.error.mensaje, err.error.errors.message, 'error');
@@ -159,9 +168,15 @@ editUser(usuario: Usuario) {
              .map( (res: any) => {
               // console.log(res);
               Swal.fire('Usuario editado', 'El usuario ' + res.usuario.nombres + ' ' + res.usuario.apellidos
-              + '. Fue creado editado', 'success');
-              this.router.navigate(['/usuarios']);
-              return true;
+              + '. Fue editado', 'success');
+
+
+              if (this.usuario._id === res.usuario._id) {
+                this.guardarEnStorage(this.token, res.usuario);
+              }
+
+
+              return { ok: true, idUsuario: res.usuario._id };
              }).catch( err => {
               Swal.fire('Error', err.error.mensaje, 'error');
               if (err.status === 401) {
@@ -170,6 +185,45 @@ editUser(usuario: Usuario) {
               return Observable.throw(err);
           });
 }
+
+
+// ======================================
+// Eliminar Usuario
+// ======================================
+
+dltUser(idUsuario) {
+  return this.http.delete( apiUrl + '/usuario/' + idUsuario + '?token=' + this.token )
+                  .map( (res: any) => {
+                    // console.log(res);
+                    Swal.fire('Eliminado', 'Usuario ' + res.usuario.nombres + ' ha sido eliminado.', 'success');
+                    return true;
+                  }).catch( err => {
+                    Swal.fire('Error', err.error.mensaje, 'error');
+                    if (err.status === 401) {
+                      this.logout();
+                    }
+                    return Observable.throw(err);
+                });
+}
+
+// ======================================
+// Put imagen usuario
+// ======================================
+
+cambiarImagen(archivo: File, idUsuario: string, ruta: string) {
+
+  this.subirArchivoService.subirArchivo(archivo, 'imagen', idUsuario).then( (resp: any) => {
+      console.log('then subir imagen', resp);
+      window.scroll(0, 0);
+      if (idUsuario === resp.usuario._id) {
+        this.guardarEnStorage(this.token, resp.usuario);
+      }
+      this.router.navigate([ruta]);
+  }).catch( resp => {
+      console.log('cath subir imagen', resp);
+  });
+}
+
 
 // ======================================
 // Menu según rol

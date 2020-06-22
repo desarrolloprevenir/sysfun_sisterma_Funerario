@@ -1,0 +1,257 @@
+<div class="x_content">
+
+
+    <!-- ----------------------------------------------------------------------------------------------------- -->
+    <!-- --------------------------------------------- NAV TABS ---------------------------------------------- -->
+    <!-- ----------------------------------------------------------------------------------------------------- -->
+
+    <ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="home-tab" data-toggle="tab" role="tab" aria-controls="home" aria-selected="true" data-target="#home" style="color: #5A738E !important; cursor: pointer;">Información</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="profile-tab" data-toggle="tab" role="tab" aria-controls="profile" aria-selected="false" data-target="#profile" style="color: #5A738E !important; cursor: pointer;">Permisos y Funcionalidades</a>
+        </li>
+
+    </ul>
+    <div class="tab-content" id="myTabContent">
+
+        <!-- ----------------------------------------------------------------------------------------------------- -->
+        <!-- ------------------------------------- Información de Perfil ----------------------------------------- -->
+        <!-- ----------------------------------------------------------------------------------------------------- -->
+
+        <div class="tab-pane fade active show" id="home" role="tabpanel" aria-labelledby="home-tab" style="color: #5A738E !important; padding-top: 25px;">
+
+            <div class="row">
+
+
+                <!-- ----------------------------------------------------------------------------------------------------- -->
+                <!-- --------------------------------------- Subir imagen usuario ---------------------------------------- -->
+                <!-- ----------------------------------------------------------------------------------------------------- -->
+
+                <div class="col-md-3 col-sm-3">
+                    <div class="profile_img text-center">
+                        <div id="crop-avatar">
+                            <!-- Current avatar -->
+
+                            <img class="img-responsive avatar-view" style="width: 150px;" [src]="imagenTem" alt="Avatar" title="Change the avatar">
+
+
+
+                            <div class="pt-2">
+                                <label for="file-upload" class="custom-file-upload btn btn-success">
+                            Selecionar Imagen
+                        </label>
+                                <input id="file-upload" type="file" style="display: none;" (change)="selecionarImagen($event.target.files[0])" />
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <br>
+                </div>
+
+
+                <!-- ----------------------------------------------------------------------------------------------------- -->
+                <!-- ------------------------------------- Form Registrar usuario ---------------------------------------- -->
+                <!-- ----------------------------------------------------------------------------------------------------- -->
+
+                <div class="col-md-9 col-sm-9">
+
+                    <form ngNativeValidate class="form-label-left" [formGroup]="formUsuario" (ngSubmit)="editarUsuario()" *ngIf="user">
+
+
+                        <div class="row">
+
+                            <!-- ----------------------------------------------------------------------------------------------------- -->
+                            <!-- --------------------------------------------- Nombres ----------------------------------------------- -->
+                            <!-- ----------------------------------------------------------------------------------------------------- -->
+                            <div class="col-md-6 col-sm-6  form-group has-feedback">
+                                <input type="text" class="form-control has-feedback-left" placeholder="Nombres *" formControlName="nombres" required pattern="[A-Z a-z ñ]*">
+                                <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                            </div>
+
+
+                            <!-- ----------------------------------------------------------------------------------------------------- -->
+                            <!-- --------------------------------------------- Apellidos --------------------------------------------- -->
+                            <!-- ----------------------------------------------------------------------------------------------------- -->
+                            <div class="col-md-6 col-sm-6  form-group has-feedback">
+                                <input type="text" class="form-control has-feedback-left" placeholder="Apellidos *" formControlName="apellidos" required pattern="[A-Z a-z ñ]*">
+                                <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+
+                            <!-- ----------------------------------------------------------------------------------------------------- -->
+                            <!-- ---------------------------------------------- Cargo ------------------------------------------------ -->
+                            <!-- ----------------------------------------------------------------------------------------------------- -->
+                            <div class="col-md-6 col-sm-6  form-group has-feedback">
+                                <input type="text" class="form-control has-feedback-left" placeholder="Cargo *" formControlName="cargo" required readonly>
+                                <span class="fa fa-briefcase form-control-feedback left" aria-hidden="true"></span>
+                            </div>
+
+
+                            <!-- ----------------------------------------------------------------------------------------------------- -->
+                            <!-- ------------------------------------------------- Rol ----------------------------------------------- -->
+                            <!-- ----------------------------------------------------------------------------------------------------- -->
+
+                            <div class="col-md-6 col-sm-6  form-group has-feedback">
+                                <input type="text" class="form-control has-feedback-left" placeholder="Cargo *" formControlName="rol" required readonly>
+                                <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                            </div>
+
+
+                        </div>
+
+                        <div class="row">
+
+                            <!-- ----------------------------------------------------------------------------------------------------- -->
+                            <!-- ---------------------------------------------- Cedula ------------------------------------------------ -->
+                            <!-- ----------------------------------------------------------------------------------------------------- -->
+                            <div class="col-md-6 col-sm-6  form-group has-feedback">
+                                <input type="number" class="form-control has-feedback-left" placeholder="Cedula *" formControlName="cedula" required readonly>
+                                <span class="fa fa-credit-card form-control-feedback left" aria-hidden="true"></span>
+                            </div>
+
+
+                            <!-- ----------------------------------------------------------------------------------------------------- -->
+                            <!-- -------------------------------------------- No. Contacto ------------------------------------------- -->
+                            <!-- ----------------------------------------------------------------------------------------------------- -->
+
+                            <div class="col-md-6 col-sm-6  form-group has-feedback">
+                                <input type="number" class="form-control has-feedback-left" placeholder="Número de contacto *" formControlName="telefono" required (change)="validacionLenght(formUsuario.value.telefono, 7, 12, 'pContacto')">
+                                <span class="fa fa-phone-square form-control-feedback left" aria-hidden="true"></span>
+                                <p style="color: #2a3f54; display: none; padding-top: 5px;" id="pContacto">* Cantidad de caracteres entre 7 y 12</p>
+                            </div>
+                        </div>
+
+                        <!-- ----------------------------------------------------------------------------------------------------- -->
+                        <!-- --------------------------------------- Correo Electronico ------------------------------------------ -->
+                        <!-- ----------------------------------------------------------------------------------------------------- -->
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12  form-group has-feedback">
+                                <input type="email" class="form-control has-feedback-left" placeholder="Correo Electronico *" formControlName="correo" required readonly>
+                                <span class="fa fa-envelope-o form-control-feedback left" aria-hidden="true"></span>
+                            </div>
+                        </div>
+
+
+                        <!-- ----------------------------------------------------------------------------------------------------- -->
+                        <!-- ----------------------------------- Boton editar información ---------------------------------------- -->
+                        <!-- ----------------------------------------------------------------------------------------------------- -->
+
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <div class="text-center">
+                                <button class="btn btn-success'" type="submit" style="background-color: #26B99A !important; color: white !important;">Editar Infomación</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+
+
+            </div>
+
+        </div>
+
+        <!-- ----------------------------------------------------------------------------------------------------- -->
+        <!-- ----------------------------------- Permisos y Funcionalidades -------------------------------------- -->
+        <!-- ----------------------------------------------------------------------------------------------------- -->
+
+        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab" style="color: #5A738E !important;">
+
+            <!-- ----------------------------------------------------------------------------------------------------- -->
+            <!-- ---------------------------------- Permisos y Funcionalidades --------------------------------------- -->
+            <!-- ----------------------------------------------------------------------------------------------------- -->
+            <div class="x_content">
+
+                <h1 class="text-center" *ngIf="formUsuario.value.rol !== 'Rol'">{{formUsuario.value.rol | cambioPalabras}}</h1>
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="col-md-12 col-sm-12" *ngIf="menuyPermisos">
+
+                <!-- ----------------------------------------------------------------------------------------------------- -->
+                <!-- ----------------------------------------------- menu ------------------------------------------------ -->
+                <!-- ----------------------------------------------------------------------------------------------------- -->
+                <div *ngFor="let m of menuyPermisos; let i = index" style="padding-bottom: 20px;">
+
+                    <div class="row">
+
+                        <div class="col-9">
+                            <h2>Modulo : {{m.modulo}}</h2>
+                        </div>
+                        <div class="col-3">
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" [id]="'customSwitch' + i" [checked]="m.activo" disabled>
+                                <label class="custom-control-label" [for]="'customSwitch' + i"><span *ngIf="m.activo">Activado</span> <span *ngIf="!m.activo">Desactivado</span>   </label>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+
+                    <!-- ----------------------------------------------------------------------------------------------------- -->
+                    <!-- ---------------------------------------------- Modulos ---------------------------------------------- -->
+                    <!-- ----------------------------------------------------------------------------------------------------- -->
+                    <div *ngIf="m.activo">
+                        <table class="table jambo_table">
+                            <thead>
+                                <tr>
+                                    <th>Funcionalidades</th>
+                                    <th>Ver</th>
+                                    <th>Crear</th>
+                                    <th>Editar</th>
+                                    <th>Eliminar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <!-- ----------------------------------------------------------------------------------------------------- -->
+                                <!-- --------------------------------------------- Sub Menu ---------------------------------------------- -->
+                                <!-- ----------------------------------------------------------------------------------------------------- -->
+                                <tr *ngFor="let sm of m.subMenu; let j = index">
+                                    <th>{{sm.nombre}}</th>
+                                    <td>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" [id]="'ver' + i + j" [checked]="sm.ver" disabled>
+                                            <label class="custom-control-label" [for]="'ver' + i + j"></label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" [id]="'crear' + i + j" [checked]="sm.permisos.crear" disabled>
+                                            <label class="custom-control-label" [for]="'crear' + i + j"></label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" [id]="'editar' + i + j" [checked]="sm.permisos.editar" disabled>
+                                            <label class="custom-control-label" [for]="'editar' + i + j"></label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" [id]="'eliminar'+ i + j" [checked]="sm.permisos.eliminar" disabled>
+                                            <label class="custom-control-label" [for]="'eliminar' + i + j"></label>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+</div>

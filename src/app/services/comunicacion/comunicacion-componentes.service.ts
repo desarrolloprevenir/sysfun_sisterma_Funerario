@@ -1,25 +1,19 @@
-import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { UsuariosComponent } from '../../aplicacion/modulos/administracion/usuarios/usuarios.component';
+import { Injectable, EventEmitter } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ComunicacionComponentesService {
-  public info: any;
+  public notificacion = new EventEmitter<any>();
 
-  constructor(private router: Router) { }
+  constructor() { }
 
-  setInfo(ruta: string, info: any) {
-
-    this.info = info;
-    this.router.navigate([ruta]);
-    console.log(ruta);
+  emitNavChangeEvent(res) {
+    this.notificacion.emit(res);
+    console.log(this.notificacion);
   }
-
-  getInfo() {
-    
+  getNavChangeEmitter() {
+    return this.notificacion;
   }
-
 
 }

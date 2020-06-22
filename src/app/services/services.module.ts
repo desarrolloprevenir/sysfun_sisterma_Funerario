@@ -11,6 +11,7 @@ import { UsuarioService } from './usuario/usuario.service';
 import { HttpClientModule } from '@angular/common/http';
 import { SuperAdminService } from './super-admin/super-admin.service';
 import { ComunicacionComponentesService } from './comunicacion/comunicacion-componentes.service';
+import { SubirArchivosService } from './usuario/subir-archivos.service';
 
 @NgModule({
   declarations: [],
@@ -23,6 +24,7 @@ import { ComunicacionComponentesService } from './comunicacion/comunicacion-comp
     UsuarioService,
     SuperAdminService,
     ComunicacionComponentesService,
+    SubirArchivosService,
 
     // GUARDS
     LoginGuard,
