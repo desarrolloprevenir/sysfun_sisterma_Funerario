@@ -216,8 +216,11 @@ cambiarImagen(archivo: File, idUsuario: string, ruta: string) {
       console.log('then subir imagen', resp);
       window.scroll(0, 0);
       if (idUsuario === resp.usuario._id) {
+        console.log('aquiiii');
         this.guardarEnStorage(this.token, resp.usuario);
       }
+
+      console.log('aquiii router');
       this.router.navigate([ruta]);
   }).catch( resp => {
       console.log('cath subir imagen', resp);

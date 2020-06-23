@@ -296,7 +296,7 @@ export class CrearEditarComponent implements OnInit {
       this.usuarioEdit.telefono = this.formUsuario.value.telefono;
       this.usuarioEdit.menu = this.menuyPermisos;
 
-      // console.log('editar', this.usuarioEdit);
+      console.log('editar', this.usuarioEdit);
       this.usuarioService.editUser(this.usuarioEdit).subscribe( res => {
         if (res.ok) {
           if (this.imagenSubir) {
@@ -317,7 +317,7 @@ export class CrearEditarComponent implements OnInit {
     this.usuarioService.cambiarImagen(this.imagenSubir, idUsuario, '/usuarios');
     return;
   }
-
+ 
 
   validacionLenght(numero: string, valor1: number, valor2: number, id: string): boolean {
 

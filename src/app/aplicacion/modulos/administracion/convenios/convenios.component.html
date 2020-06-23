@@ -1,14 +1,13 @@
 <app-buscar></app-buscar>
 <div class="container-fluid">
-    <button class="btn btn-success" routerLink="/crear-usuario">Registrar Usuario</button>
+    <button class="btn btn-success" routerLink="/crear-convenio">Crear Convenio</button>
 </div>
-
 <div class="container-fluid">
 
 
     <div class="x_panel">
         <div class="x_title">
-            <h2>Usuarios Registrados <small>( {{usuarios.length}} )</small></h2>
+            <h2>Convenios Registrados <small>( 0 )</small></h2>
             <div class="clearfix"></div>
         </div>
 
@@ -25,7 +24,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let u of usuarios">
+
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+
+                    <!-- <tr *ngFor="let u of usuarios">
                         <th *ngIf="u._id !== idUsuario"><img class="img-50 img-circle pointer" [src]="this.apiUrl + '/imagenes/' + u.imagen"></th>
                         <td *ngIf="u._id !== idUsuario">{{u.nombres}}</td>
                         <td *ngIf="u._id !== idUsuario">{{u.apellidos}}</td>
@@ -37,7 +46,7 @@
                                 <button class="btn btn-danger" *ngIf="u.rol.rol !== 'Super Admin'" (click)="eliminarUsuario(u)"><i class="fa fa-trash"></i></button>
                             </div>
                         </td>
-                    </tr>
+                    </tr> -->
                 </tbody>
             </table>
 

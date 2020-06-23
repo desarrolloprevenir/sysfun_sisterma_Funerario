@@ -26,6 +26,9 @@ import { TituloComponent } from './titulo/titulo.component';
 import { LlenarPlanComponent } from './roles/usuarios/llenar-plan/llenar-plan.component';
 import { CrearEditarComponent } from './modulos/administracion/usuarios/crear-editar.component';
 import { PerfilComponent } from './modulos/perfil_y_organizacion/perfil/perfil.component';
+import { ConveniosComponent } from './modulos/administracion/convenios/convenios.component';
+import { BuscarComponent } from './components/buscar/buscar.component';
+import { CrearEditarConveniosComponent } from './modulos/administracion/convenios/crear-editar-convenios.component';
 
 
 @NgModule({
@@ -41,7 +44,10 @@ import { PerfilComponent } from './modulos/perfil_y_organizacion/perfil/perfil.c
     TituloComponent,
     LlenarPlanComponent,
     CrearEditarComponent,
-    PerfilComponent
+    PerfilComponent,
+    ConveniosComponent,
+    BuscarComponent,
+    CrearEditarConveniosComponent
   ],
   imports: [
     CommonModule,

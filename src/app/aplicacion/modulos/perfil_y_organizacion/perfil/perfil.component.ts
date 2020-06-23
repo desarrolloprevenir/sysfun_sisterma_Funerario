@@ -24,7 +24,8 @@ export class PerfilComponent implements OnInit {
 
   constructor(private validaciones: ValidacionesFormService,
               private usuarioService: UsuarioService,
-              private comunicacionService: ComunicacionComponentesService
+              private comunicacionService: ComunicacionComponentesService,
+              private router: Router
               ) { }
 
   ngOnInit() {
@@ -89,14 +90,17 @@ export class PerfilComponent implements OnInit {
 
     this.usuarioService.editUser(this.user).subscribe( res => {
       if (res.ok) {
-        this.comunicacionService.emitNavChangeEvent('ok');
         if (this.imagenSubir) {
             this.subirImagen(res.idUsuario);
-            this.comunicacionService.notificacion.emit({ok : true});
+            this.router.navigateByUrl('/pagina', {skipLocationChange: true}).then(()=>
+            this.router.navigate(['/perfil']));
         } else {
             window.scroll(0, 0);
         }
-        window.location.reload();
+        // window.location.reload();
+        // let link = ['Landing'];
+        this.router.navigateByUrl('/pagina', {skipLocationChange: true}).then(()=>
+        this.router.navigate(['/perfil']));
         return;
       }
       window.scroll(0, 0);

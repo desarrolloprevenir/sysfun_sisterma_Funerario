@@ -1,10 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { UsuarioService } from '../services/usuario/usuario.service';
 import { Usuario } from '../models/usuario.model';
 import { ComunicacionComponentesService } from '../services/comunicacion/comunicacion-componentes.service';
-import { PerfilComponent } from './modulos/perfil_y_organizacion/perfil/perfil.component';
-
-
 
 @Component({
   selector: 'app-pagina',
@@ -12,9 +9,11 @@ import { PerfilComponent } from './modulos/perfil_y_organizacion/perfil/perfil.c
   styles: []
 })
 export class PaginaComponent implements OnInit {
+  @ViewChild('contenedor', {static : true}) contenedor;
   public usuario: Usuario;
   public menu: any;
   public suscripcion;
+  public altura;
 
   constructor(public usuarioService: UsuarioService,
               public comunicacionService: ComunicacionComponentesService) { }
@@ -22,12 +21,7 @@ export class PaginaComponent implements OnInit {
   ngOnInit() {
     // console.log(this.usuarioService.cargarInfo().usuario);
     this.usuario = this.usuarioService.cargarInfo().usuario;
-
-  }
-
-  cargarInfo() {
-    console.log('aqui');
-    this.comunicacionService.getNavChangeEmitter().subscribe( notificacion => console.log(notificacion) );
+    this.altura = screen.height;
   }
 
 }
